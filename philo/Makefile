@@ -1,14 +1,30 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/03/03 13:47:18 by mathispeyre       #+#    #+#              #
+#    Updated: 2025/03/03 13:47:20 by mathispeyre      ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME		= philo
+OBJDIR		= objects/
 
 CC			= gcc
 CFLAGS		= -Werror -Wextra -Wall
 
-SRC			= philosophers.c errors.c init_and_parse.c time.c
-OBJ			= $(SRC:.c=.o)
+SRC			= philosophers.c errors.c init_and_parse.c time.c utils.c
+OBJ			= $(addprefix $(OBJDIR), $(SRC:.c=.o))
 
-all: $(NAME)
+all: $(OBJDIR) $(NAME)
 
-%.o: %.c
+$(OBJDIR):
+	@mkdir -p $(OBJDIR)
+
+$(OBJDIR)%.o: %.c
 	@echo "Compiling $<..."
 	@$(CC) $(CFLAGS) -c $< -o $@
 
@@ -19,7 +35,7 @@ $(NAME): $(OBJ)
 
 clean:
 	@echo "Removing object files..."
-	@rm -f $(OBJ)
+	@rm -rf $(OBJDIR)
 
 fclean: clean
 	@echo "Removing $(NAME)..."
