@@ -6,7 +6,7 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:41:04 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/03 15:09:04 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/03 15:48:22 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,19 @@
  */
 int	ft_usleep(unsigned long microseconds)
 {
-	unsigned long	i;
+	struct timeval	start, end;
+	unsigned long	elapsed;
 
-	if (microseconds < 1)
+	if (!microseconds)
 		return (-1);
-	i = -1;
-	while (++i != microseconds)
-		usleep(1);
+	gettimeofday(&start, NULL);
+	usleep(microseconds);
+	gettimeofday(&end, NULL);
+	elapsed = (end.tv_sec - start.tv_sec) * 1000000 + (end.tv_usec - start.tv_usec);
+	if (elapsed < microseconds)
+		usleep(microseconds - elapsed);
+	// gettimeofday(&end, NULL);
+	// elapsed = (end.tv_sec - start.tv_sec) * 1000000 + (end.tv_usec - start.tv_usec);
+	// printf("ft_usleep : %lu µs (requested: %lu)\n", elapsed, microseconds);
 	return (0);
 }
