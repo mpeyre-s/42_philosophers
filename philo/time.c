@@ -6,7 +6,7 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:41:04 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/03 14:38:05 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/03 15:09:04 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 /**
  * @brief Extremely precise usleep function
- * @param microseconds (long long)
+ * @param microseconds (unsigned long)
  * @return (int) 0 for succes, -1 for error
  */
-int	ft_usleep(long long microseconds)
+int	ft_usleep(unsigned long microseconds)
 {
-	long long	i;
+	unsigned long	i;
 
 	if (microseconds < 1)
 		return (-1);

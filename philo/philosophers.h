@@ -6,7 +6,7 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:36:56 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/03 14:37:15 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/03 15:07:06 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,26 @@
 # include <unistd.h>
 # include <limits.h>
 
-typedef struct s_data
+typedef struct s_table
 {
-	int	nb_philosophers;
+	int	nb_philo;
 	int	time_to_die;
 	int	time_to_eat;
 	int	time_to_sleep;
-	int	must_eat_nb;
-}				t_data;
+	int	min_nb_meal;
+}				t_table;
 
 /*                    INIT_AND_PARSE.C                    */
-int	init_and_parse(int ac, char **av, t_data **data);
+int	init_and_parse(int ac, char **av, t_table **table);
 
 /*                         MAIN.C                         */
-int	run_simulation(t_data *data);
+int	run_simulation(t_table *table);
 
 /*                        ERRORS.C                        */
-int	process_exit(int exit_id, t_data *data, char *msg);
+int	process_exit(int exit_id, t_table *table, char *msg);
 
 /*                         TIME.C                         */
-int	ft_usleep(long long microseconds);
+int	ft_usleep(unsigned long microseconds);
 
 /*                        UTILS.C                         */
 int	ft_atoi(const char *str);
