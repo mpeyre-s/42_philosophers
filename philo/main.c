@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.c                                     :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/03 11:38:50 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/03 15:48:54 by mathispeyre      ###   ########.fr       */
+/*   Created: 2025/03/04 11:12:53 by mathispeyre       #+#    #+#             */
+/*   Updated: 2025/03/04 15:30:50 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,14 @@ int	main(int ac, char **av)
 	t_table	*table;
 
 	table = NULL;
-	if (init_and_parse(ac, av, &table) == 1)
+	if (check_program_input(ac, av) == ERROR)
 		return (process_exit(1, table, "Invalid arguments: check count/types"));
-	run_simulation(table);
-	return (process_exit(0, table, NULL));
-}
-
-int	run_simulation(t_table *table)
-{
-	printf("Starting simulation with : %d philosophers, %d time to die, %d time to eat, %d time to sleep, %d each philo must eat\n", table->nb_philo, table->time_to_die, table->time_to_eat, table->time_to_sleep, table->min_nb_meal);
-	ft_usleep(500);
-	return (0);
+	table = init_program(ac, av);
+	if (!table)
+		return (process_exit(1, table, "Error while initializing the program"));
+	if (start_simulation(table) == ERROR)
+		return (process_exit(2, table, "Error while threading the philosophy"));
+	if (stop_simulation(table) == ERROR)
+		return (process_exit(2, table, "Error while stopping the simulation"));
+	return (process_exit(SUCCESS, table, NULL));
 }
