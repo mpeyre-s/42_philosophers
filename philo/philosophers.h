@@ -6,7 +6,7 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:36:56 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/04 15:50:21 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/04 16:16:24 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define TRUE 1
 # define FALSE 0
 # define ERROR -1
-# define NULL_ERROR NULL
+# define NULL_ERROR 0
 # define SUCCESS 0
 
 typedef enum e_status
@@ -51,7 +51,7 @@ typedef struct s_table
 	pthread_mutex_t	m_simulation;
 }				t_table;
 
-typedef struct	s_philo
+typedef struct s_philo
 {
 	int				id;
 	int				fork[2];
@@ -83,8 +83,8 @@ void			free_table(t_table *table);
 
 /*                         TIME.C                         */
 int				ft_msleep(unsigned long microseconds);
-time_t			get_time_in_ms(void);
-time_t			get_ts(time_t start, time_t now);
+time_t			get_ms(void);
+time_t			get_ts(time_t start);
 
 /*                        UTILS.C                         */
 int				ft_atoi(const char *str);
