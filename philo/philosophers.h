@@ -6,7 +6,7 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:36:56 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/04 16:59:19 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/04 17:06:38 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ typedef enum e_status
 	EATING = 1,
 	SLEEPING = 2,
 	THINKING = 3,
-	FORKING_1 = 4,
-	FORKING_2 = 5
+	LEFT_FORK = 4,
+	RIGHT_FORK = 5
 }			t_status;
 
 typedef struct s_philo	t_philo;

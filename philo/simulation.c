@@ -6,7 +6,7 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:38:50 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/04 16:58:58 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/04 17:06:51 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ void	*run_philosophy(void *ptr)
 
 	philo = (t_philo *)ptr;
 
-	philo->status = FORKING_1;
+	philo->status = LEFT_FORK;
 	print_status(philo, get_ts(philo));
 
-	philo->status = FORKING_2;
+	philo->status = RIGHT_FORK;
 	print_status(philo, get_ts(philo));
 
 	philo->status = EATING;
