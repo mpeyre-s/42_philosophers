@@ -6,12 +6,18 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:39:48 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/04 15:29:10 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/04 16:33:09 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+/**
+ * @brief Initializes the program's data structure for philosophers simulation
+ * @param ac (int) Argument count from main
+ * @param av (char **) Arguments vector from main
+ * @return (t_table *) Pointer to initialized table structure or NULL_ERROR
+ */
 t_table	*init_program(int ac, char **av)
 {
 	size_t	i;
@@ -37,6 +43,12 @@ t_table	*init_program(int ac, char **av)
 	return (table);
 }
 
+/**
+ * @brief Initializes array of philosopher structures
+ * @param table (t_table *) Pointer to the table structure
+ * @return (t_philo **) Array of philosopher pointers if successful,
+ * NULL_ERROR on failure
+ */
 t_philo	**init_philosophers(t_table *table)
 {
 	t_philo			**philos;
@@ -61,6 +73,11 @@ t_philo	**init_philosophers(t_table *table)
 	return (philos);
 }
 
+/**
+ * @brief Initializes mutex forks for the philosophers dining problem
+ * @param table (t_table *) Pointer to the table structure
+ * @return (pthread_mutex_t *) Array of initialized mutex forks, NULL_ERROR
+ */
 pthread_mutex_t	*init_forks(t_table *table)
 {
 	pthread_mutex_t	*forks;
@@ -79,6 +96,13 @@ pthread_mutex_t	*init_forks(t_table *table)
 	return (forks);
 }
 
+/**
+ * @brief Initializes global mutexes required for philosophers simulation
+ * @param table (t_table *) Pointer to the table structure
+ * @return (int) TRUE (1) if initialization succeeds,
+ * FALSE (0) if fork initialization fails,
+ * ERROR (-1) if mutex initialization fails
+ */
 int	init_global_mutexes(t_table *table)
 {
 	table->m_forks = init_forks(table);
@@ -91,6 +115,14 @@ int	init_global_mutexes(t_table *table)
 	return (TRUE);
 }
 
+/**
+ * @brief Assigns fork IDs to a philosopher based on their ID
+ * @param philo (t_philo *) Pointer to the philosopher structure
+ * @details Assigns left and right fork IDs to a philosopher.
+ * For even-numbered philosophers, left fork is their ID and right fork
+ * is (ID + 1) % total_philos.For odd-numbered philosophers,
+ * the fork order is reversed to prevent deadlocks.
+ */
 void	assign_forks(t_philo *philo)
 {
 	philo->fork[0] = philo->id;

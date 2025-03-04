@@ -6,12 +6,17 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:38:50 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/04 16:16:43 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/04 16:26:15 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+/**
+ * @brief Initiates philosophers simulation by creating threads
+ * @param table (t_table *) Pointer to the table structure
+ * @return (int) SUCCESS (0) / ERROR (-1)
+ */
 int	start_simulation(t_table *table)
 {
 	size_t	i;
@@ -27,6 +32,11 @@ int	start_simulation(t_table *table)
 	return (SUCCESS);
 }
 
+/**
+ * @brief Terminates philosophers simulation by joining threads
+ * @param table (t_table *) Pointer to the table structure
+ * @return (int) SUCCESS (0)
+ */
 int	stop_simulation(t_table *table)
 {
 	size_t	i;
@@ -37,6 +47,11 @@ int	stop_simulation(t_table *table)
 	return (SUCCESS);
 }
 
+/**
+ * @brief Function executed by each philosopher thread during simulation
+ * @param ptr (void *) Pointer to philosopher structure cast as void pointer
+ * @return (void *) NULL pointer when thread completes
+ */
 void	*run_philosophy(void *ptr)
 {
 	t_philo	*philo;

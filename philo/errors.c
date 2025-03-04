@@ -6,12 +6,20 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:40:02 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/04 15:42:23 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/04 16:28:10 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+/**
+ * @brief Frees all allocated memory from the table structure
+ * @param table (t_table *) Pointer to the table structure to be freed
+ * @return (void) Nothing
+ * @details Frees the mutexes array, each philosopher structure,
+ *          the philosophers array and finally the table structure itself.
+ *          Performs NULL checks before attempting to free any memory.
+ */
 void	free_table(t_table *table)
 {
 	size_t	i;

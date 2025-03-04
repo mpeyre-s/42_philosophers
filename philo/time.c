@@ -6,7 +6,7 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:41:04 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/04 16:17:16 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/04 16:33:47 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ time_t	get_ms(void)
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
+/**
+ * @brief Calculate a timestamp
+ * @param start thread time_t start time
+ * @return struct time_t
+ */
 time_t	get_ts(time_t start)
 {
 	return (get_ms() - start);
