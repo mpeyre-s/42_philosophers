@@ -6,7 +6,7 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:40:02 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/04 16:28:10 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/04 17:15:38 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,24 @@ void	free_table(t_table *table)
 }
 
 /**
+ * @brief Destroys all mutexes used in the philosophers simulation
+ * @param table Pointer to the main table structure containing simulation data
+ **/
+void	destroy_mutexes(t_table *table)
+{
+	size_t	i;
+
+	i = -1;
+	while (++i < table->nb_philo)
+	{
+		pthread_mutex_destroy(&table->m_forks[i]);
+		pthread_mutex_destroy(&table->philos[i]->m_meal);
+	}
+	pthread_mutex_destroy(&table->m_print);
+	pthread_mutex_destroy(&table->m_simulation);
+}
+
+/**
  * @brief Hub function for exit process (free and errors codes/printf)
  * @param exid_id (int) :
  * - 0 exit_succes,
@@ -54,7 +72,10 @@ void	free_table(t_table *table)
 int	process_exit(int exit_id, t_table *table, char *msg)
 {
 	if (exit_id == 2)
+	{
+		destroy_mutexes(table);
 		free_table(table);
+	}
 	if (exit_id > 0)
 	{
 		if (msg)

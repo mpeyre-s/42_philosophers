@@ -6,7 +6,7 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:36:56 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/04 17:06:38 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/04 17:15:08 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void			*run_philosophy(void *ptr);
 /*                        ERRORS.C                        */
 int				process_exit(int exit_id, t_table *table, char *msg);
 void			free_table(t_table *table);
+void			destroy_mutexes(t_table *table);
 
 /*                         TIME.C                         */
 int				ft_msleep(unsigned long microseconds);
@@ -90,6 +91,7 @@ time_t			get_ts(t_philo *philo);
 
 /*                        PRINT.C                         */
 void			print_status(t_philo *philo, time_t ts);
+
 /*                        UTILS.C                         */
 int				ft_atoi(const char *str);
 
