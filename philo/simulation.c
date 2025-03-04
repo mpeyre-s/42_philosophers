@@ -6,7 +6,7 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:38:50 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/04 16:26:15 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/04 16:58:58 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,27 @@ void	*run_philosophy(void *ptr)
 	t_philo	*philo;
 
 	philo = (t_philo *)ptr;
-	printf("%ld %d awake\n", get_ts(philo->table->start_time), philo->id);
+
+	philo->status = FORKING_1;
+	print_status(philo, get_ts(philo));
+
+	philo->status = FORKING_2;
+	print_status(philo, get_ts(philo));
+
+	philo->status = EATING;
+	print_status(philo, get_ts(philo));
+	ft_msleep(philo->table->time_to_eat);
+
+	philo->status = SLEEPING;
+	print_status(philo, get_ts(philo));
+	ft_msleep(philo->table->time_to_sleep);
+
+	philo->status = THINKING;
+	print_status(philo, get_ts(philo));
 	ft_msleep(philo->table->time_to_die);
-	printf("%ld %d die\n", get_ts(philo->table->start_time), philo->id);
+
+	philo->status = DIED;
+	print_status(philo, get_ts(philo));
+
 	return (NULL);
 }

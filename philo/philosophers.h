@@ -6,7 +6,7 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:36:56 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/04 16:16:24 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/04 16:59:19 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ typedef enum e_status
 	DIED = 0,
 	EATING = 1,
 	SLEEPING = 2,
-	THINKING = 3
+	THINKING = 3,
+	FORKING_1 = 4,
+	FORKING_2 = 5
 }			t_status;
 
 typedef struct s_philo	t_philo;
@@ -84,8 +86,10 @@ void			free_table(t_table *table);
 /*                         TIME.C                         */
 int				ft_msleep(unsigned long microseconds);
 time_t			get_ms(void);
-time_t			get_ts(time_t start);
+time_t			get_ts(t_philo *philo);
 
+/*                        PRINT.C                         */
+void			print_status(t_philo *philo, time_t ts);
 /*                        UTILS.C                         */
 int				ft_atoi(const char *str);
 

@@ -6,7 +6,7 @@
 #    By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/03 13:47:18 by mathispeyre       #+#    #+#              #
-#    Updated: 2025/03/04 14:28:51 by mathispeyre      ###   ########.fr        #
+#    Updated: 2025/03/04 16:37:12 by mathispeyre      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ OBJDIR		= objects/
 CC			= gcc
 CFLAGS		= -Werror -Wextra -Wall
 
-SRC			= main.c simulation.c init.c parsing.c errors.c time.c utils.c
+SRC			= main.c simulation.c init.c parsing.c errors.c time.c utils.c print.c
 OBJ			= $(addprefix $(OBJDIR), $(SRC:.c=.o))
 
 all: $(OBJDIR) $(NAME)

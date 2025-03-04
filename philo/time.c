@@ -6,7 +6,7 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:41:04 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/04 16:33:47 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/04 16:51:43 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ time_t	get_ms(void)
  * @param start thread time_t start time
  * @return struct time_t
  */
-time_t	get_ts(time_t start)
+time_t	get_ts(t_philo *philo)
 {
-	return (get_ms() - start);
+	return (get_ms() - philo->table->start_time);
 }
