@@ -6,7 +6,7 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:36:56 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/04 15:43:29 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/04 15:50:21 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void			free_table(t_table *table);
 /*                         TIME.C                         */
 int				ft_msleep(unsigned long microseconds);
 time_t			get_time_in_ms(void);
+time_t			get_ts(time_t start, time_t now);
 
 /*                        UTILS.C                         */
 int				ft_atoi(const char *str);
