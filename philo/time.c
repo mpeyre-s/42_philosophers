@@ -6,7 +6,7 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:41:04 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/04 11:05:37 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/04 11:08:04 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,13 @@ int	ft_msleep(unsigned long milliseconds)
 	return (0);
 }
 
+/**
+ * @brief Get time in milliseconds
+ * @return struct time_t
+ */
 time_t	get_time_in_ms(void)
 {
-	struct timeval		time;
+	struct timeval	time;
 
 	gettimeofday(&time, NULL);
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
