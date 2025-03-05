@@ -6,7 +6,7 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:38:50 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/04 17:06:51 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/05 18:41:02 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,16 @@ int	start_simulation(t_table *table)
 {
 	size_t	i;
 
-	i = -1;
 	table->start_time = get_ms();
+	i = -1;
 	while (++i < table->nb_philo)
 	{
 		if (pthread_create(&table->philos[i]->thread, NULL,
 				&run_philosophy, table->philos[i]) != 0)
 			return (ERROR);
 	}
+	if (pthread_create(&table->monitoring, NULL, &monitor_philosophers, table) != 0)
+		return (ERROR);
 	return (SUCCESS);
 }
 
@@ -44,6 +46,7 @@ int	stop_simulation(t_table *table)
 	i = -1;
 	while (++i < table->nb_philo)
 		pthread_join(table->philos[i]->thread, NULL);
+	pthread_join(table->monitoring, NULL);
 	return (SUCCESS);
 }
 
@@ -57,27 +60,19 @@ void	*run_philosophy(void *ptr)
 	t_philo	*philo;
 
 	philo = (t_philo *)ptr;
-
-	philo->status = LEFT_FORK;
-	print_status(philo, get_ts(philo));
-
-	philo->status = RIGHT_FORK;
-	print_status(philo, get_ts(philo));
-
-	philo->status = EATING;
-	print_status(philo, get_ts(philo));
-	ft_msleep(philo->table->time_to_eat);
-
-	philo->status = SLEEPING;
-	print_status(philo, get_ts(philo));
-	ft_msleep(philo->table->time_to_sleep);
-
-	philo->status = THINKING;
-	print_status(philo, get_ts(philo));
-	ft_msleep(philo->table->time_to_die);
-
-	philo->status = DIED;
-	print_status(philo, get_ts(philo));
-
+	pthread_mutex_lock(&philo->m_meal);
+	philo->last_meal = philo->table->start_time;
+	pthread_mutex_unlock(&philo->m_meal);
+	philo->table->start_time = get_ms();
+	philo->table->sim_running = TRUE;
+	if (philo->table->nb_philo == 1)
+		return (dead_by_overthinking(philo));
+	else if (philo->id % 2)
+		start_thinking(philo);
+	while (is_simulation_running(philo) == TRUE)
+	{
+		start_eating_then_sleeping(philo);
+		start_thinking(philo);
+	}
 	return (NULL);
 }

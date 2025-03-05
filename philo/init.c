@@ -6,7 +6,7 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:39:48 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/04 16:33:09 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/05 17:53:21 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_philo	**init_philosophers(t_table *table)
 			return (NULL_ERROR);
 		philos[i]->table = table;
 		philos[i]->id = i;
+		philos[i]->nb_meal = 0;
 		assign_forks(philos[i]);
 		i++;
 	}

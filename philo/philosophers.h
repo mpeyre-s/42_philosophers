@@ -6,7 +6,7 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:36:56 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/04 17:15:08 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/05 18:11:59 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 typedef enum e_status
 {
-	DIED = 0,
+	DEAD = 0,
 	EATING = 1,
 	SLEEPING = 2,
 	THINKING = 3,
@@ -48,6 +48,7 @@ typedef struct s_table
 	int				time_to_sleep;
 	int				min_nb_meal;
 	t_philo			**philos;
+	pthread_t		monitoring;
 	pthread_mutex_t	*m_forks;
 	pthread_mutex_t	m_print;
 	pthread_mutex_t	m_simulation;
@@ -57,6 +58,7 @@ typedef struct s_philo
 {
 	int				id;
 	int				fork[2];
+	int				nb_meal;
 	time_t			last_meal;
 	t_status		status;
 	pthread_t		thread;
@@ -79,6 +81,18 @@ int				start_simulation(t_table *table);
 int				stop_simulation(t_table *table);
 void			*run_philosophy(void *ptr);
 
+/*                      MONITOPRING.C                     */
+void			*monitor_philosophers(void *ptr);
+int				is_simulation_running(t_philo *philo);
+int				is_someone_dead(t_philo *philo);
+void			set_simulation_status(t_table *table, int status);
+int				is_end_of_dinner(t_table *table);
+
+/*                       ACTIONS.C                        */
+void			*dead_by_overthinking(t_philo *philo);
+void			start_eating_then_sleeping(t_philo *philo);
+void			start_thinking(t_philo *philo);
+
 /*                        ERRORS.C                        */
 int				process_exit(int exit_id, t_table *table, char *msg);
 void			free_table(t_table *table);
@@ -90,7 +104,7 @@ time_t			get_ms(void);
 time_t			get_ts(t_philo *philo);
 
 /*                        PRINT.C                         */
-void			print_status(t_philo *philo, time_t ts);
+void			process_status(t_philo *philo, time_t ts, t_status new);
 
 /*                        UTILS.C                         */
 int				ft_atoi(const char *str);
