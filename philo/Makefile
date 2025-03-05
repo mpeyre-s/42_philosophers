@@ -6,7 +6,7 @@
 #    By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/03 13:47:18 by mathispeyre       #+#    #+#              #
-#    Updated: 2025/03/04 16:37:12 by mathispeyre      ###   ########.fr        #
+#    Updated: 2025/03/05 14:50:28 by mathispeyre      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,11 @@ OBJDIR		= objects/
 
 CC			= gcc
 CFLAGS		= -Werror -Wextra -Wall
+
+YELLOW		= \033[1;33m
+GREEN		= \033[1;32m
+RED			= \033[1;31m
+RESET		= \033[0m
 
 SRC			= main.c simulation.c init.c parsing.c errors.c time.c utils.c print.c
 OBJ			= $(addprefix $(OBJDIR), $(SRC:.c=.o))
@@ -25,20 +30,20 @@ $(OBJDIR):
 	@mkdir -p $(OBJDIR)
 
 $(OBJDIR)%.o: %.c
-	@echo "Compiling $<..."
+	@echo "$(YELLOW)Compiling $<...$(RESET)"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ)
-	@echo "Compiling $(NAME)..."
+	@echo "$(YELLOW)Compiling $(NAME)...$(RESET)"
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
-	@echo "$(NAME) ready"
+	@echo "$(GREEN)./$(NAME) ready$(RESET)"
 
 clean:
-	@echo "Removing object files..."
+	@echo "$(RED)Removing object files...$(RESET)"
 	@rm -rf $(OBJDIR)
 
 fclean: clean
-	@echo "Removing $(NAME)..."
+	@echo "$(RED)Removing $(NAME)...$(RESET)"
 	@rm -f $(NAME)
 
 re: fclean all
