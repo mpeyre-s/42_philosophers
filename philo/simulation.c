@@ -6,7 +6,7 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:38:50 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/05 18:41:02 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/06 14:23:46 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,12 @@ int	start_simulation(t_table *table)
 				&run_philosophy, table->philos[i]) != 0)
 			return (ERROR);
 	}
-	if (pthread_create(&table->monitoring, NULL, &monitor_philosophers, table) != 0)
-		return (ERROR);
+	if (table->nb_philo > 1)
+	{
+		if (pthread_create(&table->monitoring, NULL,
+				&monitor_philosophers, table) != 0)
+			return (ERROR);
+	}
 	return (SUCCESS);
 }
 
@@ -46,7 +50,8 @@ int	stop_simulation(t_table *table)
 	i = -1;
 	while (++i < table->nb_philo)
 		pthread_join(table->philos[i]->thread, NULL);
-	pthread_join(table->monitoring, NULL);
+	if (table->nb_philo > 1)
+		pthread_join(table->monitoring, NULL);
 	return (SUCCESS);
 }
 
@@ -63,7 +68,6 @@ void	*run_philosophy(void *ptr)
 	pthread_mutex_lock(&philo->m_meal);
 	philo->last_meal = philo->table->start_time;
 	pthread_mutex_unlock(&philo->m_meal);
-	philo->table->start_time = get_ms();
 	philo->table->sim_running = TRUE;
 	if (philo->table->nb_philo == 1)
 		return (dead_by_overthinking(philo));

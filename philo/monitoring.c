@@ -6,7 +6,7 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 16:14:49 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/05 18:44:47 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/06 14:24:43 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,11 @@ void	*monitor_philosophers(void *ptr)
 
 	table = (t_table *)ptr;
 	set_simulation_status(table, TRUE);
-	table->start_time = get_ms();
 	while (1)
 	{
 		if (is_end_of_dinner(table) == TRUE)
 			return (NULL);
-		ft_msleep(10000);
+		ft_msleep(5);
 	}
 }
 
@@ -39,10 +38,7 @@ int	is_simulation_running(t_philo *philo)
 
 int	is_someone_dead(t_philo *philo)
 {
-	time_t	time;
-
-	time = get_ms();
-	if ((time - philo->last_meal) >= philo->table->time_to_die)
+	if ((get_ts(philo) - philo->last_meal) >= philo->table->time_to_die)
 	{
 		set_simulation_status(philo->table, FALSE);
 		process_status(philo, get_ts(philo), DEAD);
@@ -80,6 +76,9 @@ int	is_end_of_dinner(t_table *table)
 	if (table->min_nb_meal != -1 && everybody_is_full == TRUE)
 	{
 		set_simulation_status(table, FALSE);
+		pthread_mutex_lock(&table->m_print);
+		printf("Everyone as eaten %d times\n", table->min_nb_meal);
+		pthread_mutex_unlock(&table->m_print);
 		return (TRUE);
 	}
 	return (FALSE);

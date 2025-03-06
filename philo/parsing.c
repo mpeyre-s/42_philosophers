@@ -6,7 +6,7 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 14:29:15 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/04 16:33:29 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/06 14:02:46 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	check_program_input(int ac, char **av)
 	while ((int)++i < ac)
 	{
 		nb = ft_atoi(av[i]);
-		if ((i == 1 && nb < 1) || (i != 1 && nb < 0) || nb > INT_MAX)
+		if ((i == 1 && nb < 1) || (i == 2 && nb < 1)
+			|| (i != 1 && nb < 0) || nb > INT_MAX)
 			return (ERROR);
 	}
 	return (SUCCESS);
