@@ -6,12 +6,19 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 16:37:19 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/06 14:59:23 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/06 15:28:28 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+/**
+ * @brief Update the status then print it (with timestamp auto calculated)
+ * @param philo The philosopher structure
+ * @param ts The timestamp
+ * @param new The new time_t status
+ * @return Bool true/false
+ */
 void	process_status(t_philo *philo, time_t ts, t_status new)
 {
 	int	running;

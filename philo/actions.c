@@ -6,12 +6,17 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 16:37:06 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/06 14:23:58 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/06 15:23:23 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+/**
+ * @brief Routine if there is one philo
+ * @param philo The philosopher structure
+ * @return NULL
+ */
 void	*dead_by_overthinking(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->table->m_forks[philo->fork[0]]);
@@ -21,7 +26,10 @@ void	*dead_by_overthinking(t_philo *philo)
 	pthread_mutex_unlock(&philo->table->m_forks[philo->fork[0]]);
 	return (NULL);
 }
-
+/**
+ * @brief Eating then sleeping routine
+ * @param philo The philosopher structure
+ */
 void	start_eating_then_sleeping(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->table->m_forks[philo->fork[0]]);
@@ -44,7 +52,10 @@ void	start_eating_then_sleeping(t_philo *philo)
 	pthread_mutex_unlock(&philo->table->m_forks[philo->fork[0]]);
 	ft_msleep(philo->table->time_to_sleep);
 }
-
+/**
+ * @brief Routine for odd philosophers (prevent deadlock)
+ * @param philo The philosopher structure
+ */
 void	start_thinking(t_philo *philo)
 {
 	time_t	think_time;

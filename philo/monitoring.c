@@ -6,12 +6,16 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 16:14:49 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/06 14:24:43 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/06 15:27:12 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+/**
+ * @brief Function for the only monitoring thread (always check if its end)
+ * @param table The table structure
+ */
 void	*monitor_philosophers(void *ptr)
 {
 	t_table	*table;
@@ -26,6 +30,11 @@ void	*monitor_philosophers(void *ptr)
 	}
 }
 
+/**
+ * @brief Check if the sim is running with the struct table
+ * @param philo The philosopher structure
+ * @return Bool true/false
+ */
 int	is_simulation_running(t_philo *philo)
 {
 	int	result;
@@ -36,6 +45,11 @@ int	is_simulation_running(t_philo *philo)
 	return (result);
 }
 
+/**
+ * @brief Check if someone is dead
+ * @param philo The philosopher structure
+ * @return Bool true/false
+ */
 int	is_someone_dead(t_philo *philo)
 {
 	if ((get_ts(philo) - philo->last_meal) >= philo->table->time_to_die)
@@ -48,6 +62,11 @@ int	is_someone_dead(t_philo *philo)
 	return (FALSE);
 }
 
+/**
+ * @brief Set the sim status with mutex protection
+ * @param table The table structure
+ * @param status The new status
+ */
 void	set_simulation_status(t_table *table, int status)
 {
 	pthread_mutex_lock(&table->m_simulation);
@@ -55,6 +74,11 @@ void	set_simulation_status(t_table *table, int status)
 	pthread_mutex_unlock(&table->m_simulation);
 }
 
+/**
+ * @brief Check if its the end of the program (dead or stomack full)
+ * @param table The table structure
+ * @return Bool true/false
+ */
 int	is_end_of_dinner(t_table *table)
 {
 	size_t	i;
