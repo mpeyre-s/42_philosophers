@@ -6,7 +6,7 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:38:50 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/06 14:23:46 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/06 15:02:11 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	*run_philosophy(void *ptr)
 	pthread_mutex_lock(&philo->m_meal);
 	philo->last_meal = philo->table->start_time;
 	pthread_mutex_unlock(&philo->m_meal);
-	philo->table->sim_running = TRUE;
+	set_simulation_status(philo->table, TRUE);
 	if (philo->table->nb_philo == 1)
 		return (dead_by_overthinking(philo));
 	else if (philo->id % 2)

@@ -6,7 +6,7 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 16:37:19 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/06 10:47:33 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/06 14:59:23 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,14 @@
 
 void	process_status(t_philo *philo, time_t ts, t_status new)
 {
+	int	running;
+
 	philo->status = new;
 	pthread_mutex_lock(&philo->table->m_print);
-	if (philo->table->sim_running || philo->status == DEAD)
+	pthread_mutex_lock(&philo->table->m_simulation);
+	running = philo->table->sim_running;
+	pthread_mutex_unlock(&philo->table->m_simulation);
+	if (running || philo->status == DEAD)
 	{
 		if (philo->status == DEAD)
 			printf("%ld %d died\n", ts, (philo->id) + 1);
