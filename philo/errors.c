@@ -6,7 +6,7 @@
 /*   By: mathispeyre <mathispeyre@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:40:02 by mathispeyre       #+#    #+#             */
-/*   Updated: 2025/03/04 17:15:38 by mathispeyre      ###   ########.fr       */
+/*   Updated: 2025/03/06 14:47:11 by mathispeyre      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,12 @@ void	destroy_mutexes(t_table *table)
  */
 int	process_exit(int exit_id, t_table *table, char *msg)
 {
-	if (exit_id == 2)
+	if (table != NULL)
 	{
 		destroy_mutexes(table);
 		free_table(table);
 	}
-	if (exit_id > 0)
-	{
-		if (msg)
-			printf("%s\n", msg);
-		return (1);
-	}
+	if (exit_id > 0 && msg)
+		printf("%s\n", msg);
 	return (exit_id);
 }
